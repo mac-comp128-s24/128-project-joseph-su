@@ -1,6 +1,3 @@
-import edu.macalester.graphics.CanvasWindow;
-import edu.macalester.graphics.GraphicsGroup;
-import edu.macalester.graphics.GraphicsText;
 import edu.macalester.graphics.ui.Button;
 import edu.macalester.graphics.ui.TextField;
 import edu.macalester.graphics.*;
@@ -18,8 +15,10 @@ public class MainUI extends GraphicsGroup {
     private Button deleteButton;
     private CanvasWindow canvas;
     private List<GraphicsText> textElements;
-    private List<Ellipse> ellipseElements;
+    private List<NodeEllipse> ellipseElements;
     private List<Line> connectionLines;
+    private Node node;
+    private NodeEllipse nodeEllipse;
 
     public MainUI() {
 
@@ -67,17 +66,18 @@ public class MainUI extends GraphicsGroup {
         GraphicsText displayText = new GraphicsText(Integer.toString(value));
         displayText.setFontSize(24);
         displayText.setFillColor(Color.WHITE);
-        displayText.setCenter(50+size()*10, 150 + size() * 50);
+        displayText.setCenter((CANVAS_WIDTH*0.5)+size()*60, 150 + size() * 75);
 
-        Ellipse ellipse = new Ellipse(0, 0, 50, 50);
-        ellipse.setFillColor(Color.RED);
-        ellipse.setStrokeColor(Color.BLACK);
-        ellipse.setCenter(50+size()*10, 150 + size() * 50);
+        node = new Node(value);
+        nodeEllipse = new NodeEllipse(node, ellipseElements.size());
+        nodeEllipse.setFillColor(Color.RED);
+        nodeEllipse.setStrokeColor(Color.BLACK);
+        nodeEllipse.setCenter((CANVAS_WIDTH*0.5)+size()*60, 150 + size() * 75);
 
-        canvas.add(ellipse);
+        canvas.add(nodeEllipse);
         canvas.add(displayText);
         textElements.add(displayText);
-        ellipseElements.add(ellipse);
+        ellipseElements.add(nodeEllipse);
 
         connectElements();
         canvas.draw();
@@ -112,10 +112,18 @@ public class MainUI extends GraphicsGroup {
         clearConnectionLines();
 
         for (int i = 0; i < size() - 1; i++) {
-            Ellipse startEllipse = ellipseElements.get(i);
-            Ellipse endEllipse = ellipseElements.get(i + 1);
-            Point startPoint = startEllipse.getCenter();
-            Point endPoint = endEllipse.getCenter();
+            NodeEllipse startEllipse = ellipseElements.get(i);
+            NodeEllipse endEllipse = ellipseElements.get(i + 1);
+
+            double startX = startEllipse.getCenter().getX(); 
+            double startY = startEllipse.getCenter().getY() + (startEllipse.getHeight() / 2);
+            Point startPoint = new Point(startX, startY);
+        
+
+            double endX = endEllipse.getCenter().getX(); 
+            double endY = endEllipse.getCenter().getY() - (endEllipse.getHeight() / 2);      
+            Point endPoint = new Point(endX, endY);
+
             Line connectionLine = new Line(startPoint, endPoint);
             connectionLine.setStrokeColor(Color.BLACK);
             connectionLine.setStrokeWidth(2);
