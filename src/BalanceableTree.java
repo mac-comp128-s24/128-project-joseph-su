@@ -1,5 +1,6 @@
 
 public class BalanceableTree {
+    
     private Node root;
 
     public BalanceableTree(int value) {

@@ -9,6 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainUI extends GraphicsGroup {
+
+    private static int CANVAS_WIDTH = 800;
+    private static int CANVAS_HEIGHT = 600;
+
     private TextField inputNumber;
     private Button insertButton;
     private Button deleteButton;
@@ -17,18 +21,21 @@ public class MainUI extends GraphicsGroup {
     private List<Ellipse> ellipseElements;
     private List<Line> connectionLines;
 
-    public MainUI(CanvasWindow canvas) {
-        this.canvas = canvas;
+    public MainUI() {
+
+        canvas = new CanvasWindow("Red Black Tree", CANVAS_WIDTH, CANVAS_HEIGHT);
+        canvas.draw();
+
         inputNumber = new TextField();
-        inputNumber.setPosition(12, 12);
+        inputNumber.setPosition(CANVAS_WIDTH * 0.015, CANVAS_HEIGHT * 0.02);
         canvas.add(inputNumber);
 
         insertButton = new Button("Insert");
-        insertButton.setPosition(110, 12);
+        insertButton.setPosition(CANVAS_WIDTH * 0.1375, CANVAS_HEIGHT * 0.02);
         canvas.add(insertButton);
 
         deleteButton = new Button("Delete");
-        deleteButton.setPosition(180, 12);
+        deleteButton.setPosition(CANVAS_WIDTH * 0.225, CANVAS_HEIGHT * 0.02);
         canvas.add(deleteButton);
 
         textElements = new ArrayList<>();
@@ -67,8 +74,8 @@ public class MainUI extends GraphicsGroup {
         ellipse.setStrokeColor(Color.BLACK);
         ellipse.setCenter(50+size()*10, 150 + size() * 50);
 
-        add(ellipse);
-        add(displayText);
+        canvas.add(ellipse);
+        canvas.add(displayText);
         textElements.add(displayText);
         ellipseElements.add(ellipse);
 
@@ -129,10 +136,8 @@ public class MainUI extends GraphicsGroup {
     }
 
     public static void main(String[] args) {
-        CanvasWindow canvas = new CanvasWindow("Red Black Tree", 800, 600);
-        MainUI mainUI = new MainUI(canvas);
-        canvas.add(mainUI);
-        canvas.draw();
+
+        new MainUI();
 
 
 
