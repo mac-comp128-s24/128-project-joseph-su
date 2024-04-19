@@ -16,6 +16,8 @@ public class NodeEllipse extends Ellipse {
         // if left child -x, if right child +x
         // if more than one, every two elements become a level
         // each level, there are n ^ 2 children where n is the order (2)
+        
+
     }
 
     public double getRadius(){

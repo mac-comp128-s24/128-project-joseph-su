@@ -9,8 +9,8 @@ public class MainUI extends GraphicsGroup {
 
     private static int CANVAS_WIDTH = 800;
     private static int CANVAS_HEIGHT = 600;
-
     private TextField inputNumber;
+    static RedBlackTree tree;
     private Button insertButton;
     private Button deleteButton;
     private CanvasWindow canvas;
@@ -43,8 +43,15 @@ public class MainUI extends GraphicsGroup {
 
         insertButton.onClick(() -> {
             try {
+     
                 int valueToInsert = Integer.parseInt(inputNumber.getText());
-                createEllipseWithValue(valueToInsert);
+                // createEllipseWithValue(valueToInsert);
+                    if(ellipseElements.isEmpty()){
+                        tree = new RedBlackTree(valueToInsert);
+                    } else{
+                        tree.insert(valueToInsert);
+                        tree.inorder(tree.getRoot());
+                    }
             } catch (NumberFormatException e) {
                 System.out.println("Invalid input");
             }
@@ -149,13 +156,14 @@ public class MainUI extends GraphicsGroup {
 
 
 
-//         // RedBlackTree tree1 = new RedBlackTree(10);
-//         // tree1.insert(15);
-//         // tree1.insert(5);
-//         // tree1.insert(20);
-//         // tree1.remove(15);
-//         // tree1.inorder(tree1.getRoot());
+        // RedBlackTree tree1 = new RedBlackTree(10);
+        // tree1.insert(15);
+        // tree1.insert(5);
+        // tree1.insert(20);
+        // tree1.remove(15);
+        // tree1.inorder(tree1.getRoot());
 //     }
+
 // }
     }
 

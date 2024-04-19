@@ -49,8 +49,12 @@ public class BalanceableTree {
         } else {
             if (key < foundNode.getValue()) {
                 foundNode.setLeftChild(newNode);
+
+                // setLeftPosition(newNode);
+
             } else {
                 foundNode.setRightChild(newNode);
+                // setRightPosition(newNode);
             }
 
             newNode.setParent(foundNode);
@@ -212,7 +216,9 @@ public class BalanceableTree {
         return hasOneChild(node) || hasTwoChildren(node);
     }
 
-    public void rebalanceAccess(Node node) {}
+    public void rebalanceAccess(Node node) {
+        
+    }
     public void rebalanceInsert(Node node) {}
     public void rebalanceDelete(Node node) {}
 
