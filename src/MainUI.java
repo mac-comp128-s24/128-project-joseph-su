@@ -45,13 +45,13 @@ public class MainUI extends GraphicsGroup {
             try {
      
                 int valueToInsert = Integer.parseInt(inputNumber.getText());
-                // createEllipseWithValue(valueToInsert);
-                    if(ellipseElements.isEmpty()){
-                        tree = new RedBlackTree(valueToInsert);
-                    } else{
-                        tree.insert(valueToInsert);
-                        tree.inorder(tree.getRoot());
-                    }
+                createEllipseWithValue(valueToInsert);
+                    // if(ellipseElements.isEmpty()){
+                    //     tree = new RedBlackTree(valueToInsert);
+                    // } else{
+                    //     tree.insert(valueToInsert);
+                    //     tree.inorder(tree.getRoot());
+                    // }
             } catch (NumberFormatException e) {
                 System.out.println("Invalid input");
             }
