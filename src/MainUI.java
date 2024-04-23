@@ -154,18 +154,12 @@ public class MainUI extends GraphicsGroup {
 
         new MainUI();
 
-
-
-        // RedBlackTree tree1 = new RedBlackTree(10);
-        // tree1.insert(15);
-        // tree1.insert(5);
-        // tree1.insert(20);
-        // tree1.remove(15);
-        // tree1.inorder(tree1.getRoot());
-//     }
-
-// }
+        RedBlackTree tree1 = new RedBlackTree(10);
+        tree1.insert(15);
+        tree1.insert(5);
+        tree1.insert(20);
+        tree1.remove(15);
+        tree1.inorder(tree1.getRoot());
     }
-
 
 }
