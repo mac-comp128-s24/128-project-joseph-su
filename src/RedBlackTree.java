@@ -329,7 +329,7 @@ public class RedBlackTree {
    // Modified drawTree method to use GraphicsGroup
    public void drawTree(GraphicsGroup graphicsGroup, int nodeDiameter) {
        int width = getDepth();
-       this.traceTreePreorder(1000 / 2, 100, root, graphicsGroup, 1, width * 2, nodeDiameter);
+       this.traceTreePreorder(1000 / 2, 200, root, graphicsGroup, 1, width * 2, nodeDiameter);
    }
 }
   

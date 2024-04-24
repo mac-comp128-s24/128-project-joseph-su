@@ -1,3 +1,5 @@
+import java.awt.Color;
+
 import edu.macalester.graphics.*;
 import edu.macalester.graphics.ui.*;
 import edu.macalester.graphics.ui.Button;
@@ -33,34 +35,39 @@ public class MainUI {
    private void initialize() {
 
 
+
+
        canvas = new CanvasWindow("Red-Black Tree Visualizer", CANVAS_WIDTH, CANVAS_HEIGHT);
        canvas.draw();
 
+       Rectangle container = new Rectangle(10,25, CANVAS_WIDTH - 20, CANVAS_HEIGHT * 0.05);
+       container.setFillColor(Color.LIGHT_GRAY);
+       canvas.add(container);
 
        TreeLayer = new GraphicsGroup();
        canvas.add(TreeLayer);
 
 
        inputNumber = new TextField();
-       inputNumber.setPosition(CANVAS_WIDTH * 0.015, CANVAS_HEIGHT * 0.02);
+       inputNumber.setPosition(CANVAS_WIDTH * 0.3, CANVAS_HEIGHT * 0.04);
        canvas.add(inputNumber);
 
 
        insertButton = new Button("Insert");
-       insertButton.setPosition(CANVAS_WIDTH * 0.1375, CANVAS_HEIGHT * 0.02);
+       insertButton.setPosition(inputNumber.getPosition().getX() + inputNumber.getWidth() + 20, CANVAS_HEIGHT * 0.039);
        canvas.add(insertButton);
 
 
        deleteButton = new Button("Delete");
-       deleteButton.setPosition(CANVAS_WIDTH * 0.225, CANVAS_HEIGHT * 0.02);
+       deleteButton.setPosition(insertButton.getPosition().getX() + insertButton.getWidth() + 20, CANVAS_HEIGHT * 0.039);
        canvas.add(deleteButton);
 
        clearAllButton = new Button("Clear");
-       clearAllButton.setPosition(CANVAS_WIDTH * 0.325, CANVAS_HEIGHT * 0.02);
+       clearAllButton.setPosition(deleteButton.getPosition().getX() + deleteButton.getWidth() + 20, CANVAS_HEIGHT * 0.039);
        canvas.add(clearAllButton);
 
 
-       insertButton.onClick(() -> {
+    insertButton.onClick(() -> {
            try {
                canvas.remove(TreeLayer);
                TreeLayer = new GraphicsGroup();
@@ -74,7 +81,7 @@ public class MainUI {
            }
        });
 
-       deleteButton.onClick(() -> {
+    deleteButton.onClick(() -> {
         try {
             canvas.remove(TreeLayer);
             TreeLayer = new GraphicsGroup();
