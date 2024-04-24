@@ -298,9 +298,9 @@ public class RedBlackTree {
        nodeGroup.add(nodeCircle);
   
        // Draw lines connecting to left and right child nodes
-       int gap = (800 / (n * nodeDiameter)) * Math.max(3, level);
+       int gap = (400 / (n * nodeDiameter)) * Math.max(3, level);
        int childY = y + 70; // Vertical position of child nodes
-       int leftChildX = x - gap;
+       int leftChildX = x - gap - 30;
        int rightChildX = x + gap + 30;
        if (currentNode.left != NIL) {
            Line leftLine = new Line(x - nodeDiameter / 2, y, leftChildX, childY - nodeDiameter / 2);
