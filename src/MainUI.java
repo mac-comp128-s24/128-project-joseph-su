@@ -1,165 +1,78 @@
+import edu.macalester.graphics.*;
+import edu.macalester.graphics.ui.*;
 import edu.macalester.graphics.ui.Button;
 import edu.macalester.graphics.ui.TextField;
-import edu.macalester.graphics.*;
-import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
 
-public class MainUI extends GraphicsGroup {
 
-    private static int CANVAS_WIDTH = 800;
-    private static int CANVAS_HEIGHT = 600;
-    private TextField inputNumber;
-    static RedBlackTree tree;
-    private Button insertButton;
-    private Button deleteButton;
-    private CanvasWindow canvas;
-    private List<GraphicsText> textElements;
-    private List<NodeEllipse> ellipseElements;
-    private List<Line> connectionLines;
-    private Node node;
-    private NodeEllipse nodeEllipse;
+public class MainUI {
 
-    public MainUI() {
 
-        canvas = new CanvasWindow("Red Black Tree", CANVAS_WIDTH, CANVAS_HEIGHT);
-        canvas.draw();
+   private final RedBlackTree tree;
 
-        inputNumber = new TextField();
-        inputNumber.setPosition(CANVAS_WIDTH * 0.015, CANVAS_HEIGHT * 0.02);
-        canvas.add(inputNumber);
 
-        insertButton = new Button("Insert");
-        insertButton.setPosition(CANVAS_WIDTH * 0.1375, CANVAS_HEIGHT * 0.02);
-        canvas.add(insertButton);
+   private static int CANVAS_WIDTH = 1000;
+   private static int CANVAS_HEIGHT = 800;
+   private static int NODE_DIAMETER = 50;
 
-        deleteButton = new Button("Delete");
-        deleteButton.setPosition(CANVAS_WIDTH * 0.225, CANVAS_HEIGHT * 0.02);
-        canvas.add(deleteButton);
 
-        textElements = new ArrayList<>();
-        ellipseElements = new ArrayList<>();
-        connectionLines = new ArrayList<>();
+   private GraphicsGroup TreeLayer;
+   private TextField inputNumber;
+   private Button insertButton;
+   private Button deleteButton;
+   private CanvasWindow canvas;
 
-        insertButton.onClick(() -> {
-            try {
-     
-                int valueToInsert = Integer.parseInt(inputNumber.getText());
-                createEllipseWithValue(valueToInsert);
-                    // if(ellipseElements.isEmpty()){
-                    //     tree = new RedBlackTree(valueToInsert);
-                    // } else{
-                    //     tree.insert(valueToInsert);
-                    //     tree.inorder(tree.getRoot());
-                    // }
-            } catch (NumberFormatException e) {
-                System.out.println("Invalid input");
-            }
-        });
 
-        deleteButton.onClick(() -> {
-            try {
-                int valueToDelete = Integer.parseInt(inputNumber.getText());
-                removeEllipseWithValue(valueToDelete);
-            } catch (NumberFormatException e) {
-                System.out.println("Invalid input");
-            } catch (IllegalArgumentException e) {
-                System.out.println("Integer not found");
-            }
-        });
-    }
+   public MainUI() {
+       tree = new RedBlackTree();
+       initialize();
+   }
 
-    private void createEllipseWithValue(int value) {
-        GraphicsText displayText = new GraphicsText(Integer.toString(value));
-        displayText.setFontSize(24);
-        displayText.setFillColor(Color.WHITE);
-        displayText.setCenter((CANVAS_WIDTH*0.5)+size()*60, 150 + size() * 75);
 
-        node = new Node(value);
-        nodeEllipse = new NodeEllipse(node, ellipseElements.size());
-        nodeEllipse.setFillColor(Color.RED);
-        nodeEllipse.setStrokeColor(Color.BLACK);
-        nodeEllipse.setCenter((CANVAS_WIDTH*0.5)+size()*60, 150 + size() * 75);
+   //THE INITIALIZER IS THE TRIGGER FOR THE MAIN METHOD ---SEE MAIN.JAVA--- THEREFORE YOU GOTTA NEED IT
+   private void initialize() {
 
-        canvas.add(nodeEllipse);
-        canvas.add(displayText);
-        textElements.add(displayText);
-        ellipseElements.add(nodeEllipse);
 
-        connectElements();
-        canvas.draw();
-    }
+       canvas = new CanvasWindow("Red-Black Tree Visualizer", CANVAS_WIDTH, CANVAS_HEIGHT);
+       canvas.draw();
 
-    private void removeEllipseWithValue(int valueToDelete) {
-        boolean found = false;
-        for (int i = 0; i < size(); i++) {
-            GraphicsText text = textElements.get(i);
-            Ellipse ellipse = ellipseElements.get(i);
-            if (text.getText().equals(Integer.toString(valueToDelete))) {
-                remove(text);
-                remove(ellipse);
-                textElements.remove(i);
-                ellipseElements.remove(i);
-                found = true;
-                connectElements();
-                canvas.draw();
-                break;
-            }
-        }
-        if (!found) {
-            throw new IllegalArgumentException("Integer not found");
-        }
-    }
 
-    private void connectElements() {
-        if (size() < 2) {
-            return;
-        }
+       TreeLayer = new GraphicsGroup();
+       canvas.add(TreeLayer);
 
-        clearConnectionLines();
 
-        for (int i = 0; i < size() - 1; i++) {
-            NodeEllipse startEllipse = ellipseElements.get(i);
-            NodeEllipse endEllipse = ellipseElements.get(i + 1);
+       inputNumber = new TextField();
+       inputNumber.setPosition(CANVAS_WIDTH * 0.015, CANVAS_HEIGHT * 0.02);
+       canvas.add(inputNumber);
 
-            double startX = startEllipse.getCenter().getX(); 
-            double startY = startEllipse.getCenter().getY() + (startEllipse.getHeight() / 2);
-            Point startPoint = new Point(startX, startY);
-        
 
-            double endX = endEllipse.getCenter().getX(); 
-            double endY = endEllipse.getCenter().getY() - (endEllipse.getHeight() / 2);      
-            Point endPoint = new Point(endX, endY);
+       insertButton = new Button("Insert");
+       insertButton.setPosition(CANVAS_WIDTH * 0.1375, CANVAS_HEIGHT * 0.02);
+       canvas.add(insertButton);
 
-            Line connectionLine = new Line(startPoint, endPoint);
-            connectionLine.setStrokeColor(Color.BLACK);
-            connectionLine.setStrokeWidth(2);
-            connectionLines.add(connectionLine);
-            canvas.add(connectionLine);
-        }
-    }
 
-    private void clearConnectionLines() {
-        for (Line line : connectionLines) {
-            canvas.remove(line);
-        }
-        connectionLines.clear();
-    }
+       deleteButton = new Button("Delete");
+       deleteButton.setPosition(CANVAS_WIDTH * 0.225, CANVAS_HEIGHT * 0.02);
+       canvas.add(deleteButton);
 
-    private int size() {
-        return ellipseElements.size();
-    }
 
-    public static void main(String[] args) {
+       insertButton.onClick(() -> {
+           try {
+               canvas.remove(TreeLayer);
+               TreeLayer = new GraphicsGroup();
+               canvas.add(TreeLayer);
+               int valueToInsert = Integer.parseInt(inputNumber.getText());
+               tree.insert(valueToInsert);
+               tree.drawTree(TreeLayer, NODE_DIAMETER);
+              
+           } catch (NumberFormatException e) {
+               System.out.println("Invalid input");
+           }
+       });
 
-        new MainUI();
 
-        RedBlackTree tree1 = new RedBlackTree(10);
-        tree1.insert(15);
-        tree1.insert(5);
-        tree1.insert(20);
-        tree1.remove(15);
-        tree1.inorder(tree1.getRoot());
-    }
+
+
+   }
+
 
 }
