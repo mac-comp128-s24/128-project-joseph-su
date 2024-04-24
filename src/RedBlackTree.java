@@ -247,7 +247,7 @@ public class RedBlackTree {
 
 
    public void remove(Node z) {
-       if (z == null) return;
+       if (z == NIL) return; //changed null to NIL
        Node x, y = z;
        boolean originalColor = z.colorIsRed;
        if (z.left == NIL) {

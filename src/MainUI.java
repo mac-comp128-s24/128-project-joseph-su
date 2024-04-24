@@ -19,6 +19,7 @@ public class MainUI {
    private TextField inputNumber;
    private Button insertButton;
    private Button deleteButton;
+   private Button clearAllButton;
    private CanvasWindow canvas;
 
 
@@ -54,6 +55,10 @@ public class MainUI {
        deleteButton.setPosition(CANVAS_WIDTH * 0.225, CANVAS_HEIGHT * 0.02);
        canvas.add(deleteButton);
 
+       clearAllButton = new Button("Clear");
+       clearAllButton.setPosition(CANVAS_WIDTH * 0.325, CANVAS_HEIGHT * 0.02);
+       canvas.add(clearAllButton);
+
 
        insertButton.onClick(() -> {
            try {
@@ -68,6 +73,39 @@ public class MainUI {
                System.out.println("Invalid input");
            }
        });
+
+       deleteButton.onClick(() -> {
+        try {
+            canvas.remove(TreeLayer);
+            TreeLayer = new GraphicsGroup();
+            canvas.add(TreeLayer);
+            int valueToDelete = Integer.parseInt(inputNumber.getText());
+
+            if(tree.Search((valueToDelete))!= null){
+                tree.remove(tree.Search((valueToDelete)));}
+             else {
+                System.out.println("Invalid input");
+            }
+
+            tree.drawTree(TreeLayer, NODE_DIAMETER);
+           
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input");
+        }
+    });
+
+    clearAllButton.onClick(() -> {
+        try {
+            while (tree.getSize() != 0) {
+                tree.remove(tree.getRoot());
+            }
+            canvas.remove(TreeLayer);
+            TreeLayer = new GraphicsGroup();
+            canvas.add(TreeLayer);
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input");
+        }
+    });
 
 
 
