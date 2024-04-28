@@ -131,7 +131,7 @@ public class RedBlackTree {
    private void insertFixer(Node newNode) {
        while (newNode.parent.colorIsRed) { 
            if (newNode.parent == newNode.parent.parent.left) {
-               var y = newNode.parent.parent.right;
+               Node y = newNode.parent.parent.right;
                if (y.colorIsRed) {
                    newNode.parent.colorIsRed = false;
                    y.colorIsRed = false;
@@ -147,7 +147,7 @@ public class RedBlackTree {
                    rightRotate(newNode.parent.parent);
                }
            } else {
-               var y = newNode.parent.parent.left;
+               Node y = newNode.parent.parent.left;
                if (y.colorIsRed) {
                    newNode.parent.colorIsRed = false;
                    y.colorIsRed = false;
