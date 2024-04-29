@@ -59,15 +59,15 @@ public class MainUI {
         clearAllButton.setPosition(deleteButton.getPosition().getX() + deleteButton.getWidth() + 20, CANVAS_HEIGHT * 0.039);
         canvas.add(clearAllButton);
 
-        preorderButton = new Button("Preorder");
+        preorderButton = new Button("Pre-order");
         preorderButton.setPosition(CANVAS_WIDTH * 0.35, CANVAS_HEIGHT * 0.93);
         canvas.add(preorderButton);
 
-        inorderButton = new Button("inorder");
+        inorderButton = new Button("In-order");
         inorderButton.setPosition(preorderButton.getPosition().getX() + preorderButton.getWidth() + 20, CANVAS_HEIGHT * 0.93);
         canvas.add(inorderButton);
 
-        postOrderButton = new Button("postorder");
+        postOrderButton = new Button("Post-order");
         postOrderButton.setPosition(inorderButton.getPosition().getX() + inorderButton.getWidth() + 20, CANVAS_HEIGHT * 0.93);
         canvas.add(postOrderButton);
 
