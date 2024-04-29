@@ -60,7 +60,7 @@ public class MainUI {
        canvas.add(clearAllButton);
 
        preorderButton = new Button("Preorder");
-       preorderButton.setPosition(inputNumber.getPosition().getX() + inputNumber.getWidth() + 20, CANVAS_HEIGHT * 0.93);
+       preorderButton.setPosition(CANVAS_WIDTH * 0.35, CANVAS_HEIGHT * 0.93);
        canvas.add(preorderButton);
 
        inorderButton = new Button("inorder");
